@@ -16,6 +16,7 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
 # Noch nicht implementiert
  - Möglichkeit nach Menüpunktauswahl, wieder zurück ins Menü zu kehren
  - Bei Starten eines neuen Prozesses, prüfen ob überhaupt noch genügen Speicher zur Verfügung steht
+ - Die Nummer für Default Prozessnamen wird noch nicht hoch gezählt
 
 # Geplante Features
  - Schreiben von statistichen Daten in eine Datei
