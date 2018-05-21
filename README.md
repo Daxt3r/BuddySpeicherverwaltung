@@ -20,4 +20,4 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
  - Einheitliche Darstellung von Texten (Absätzen, neue Zeilen, usw.)
 
 # Bekannte Fehler
- - Wenn zu viele Prozesse mit der größe von 1 erstellt werden, wird das Programm abstürzen
+ - Wenn zu viele Prozesse mit der Größe von 1 erstellt werden, wird das Programm abstürzen
