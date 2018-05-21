@@ -15,7 +15,6 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
 
 # Noch nicht implementiert
  - Bei Starten eines neuen Prozesses, prüfen ob überhaupt noch genügen Speicher zur Verfügung steht
- - Die Nummer für Default Prozessnamen wird noch nicht hoch gezählt
  - Einheitliche Darstellung der Tabellen
  - Einheitliche Darstellung von Texten (Absätzen, neue Zeilen, usw.)
 
