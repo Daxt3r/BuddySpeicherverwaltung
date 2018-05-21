@@ -30,6 +30,11 @@ int startProzess(struct tStorage *pStorage)
 		printf("Es ist ein Fehler in der Funktion \"HandleUserInputProzessStorage\" aufgetreten. . .\n");
 		return 1;
 	}
+	if (nProzessSize == -2)
+	{
+		printf("Vorgang wird abgebrochen, Sie kehren in das Menue zurueck!\n");
+		return 0;
+	}
 	HandleUserInputProzessName(cProzessName); //Benutzer gibt den Namen des Prozess ein, oder DEFAULT-Name wird gesetzt
 	nStorage = storageSize(nProzessSize); //Es wird der passende Speicher für den Prozess ermittelt
 

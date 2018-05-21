@@ -91,6 +91,7 @@ int HandleUserInputMenu()
 	Die Funktion läuft solange, bis eine richtige Eingabe gemacht wurde, oder das Programm beendet wird
 	Parameter : nFreeStorage = Der Speicher, der momentan noch zur Verfügung steht
 	Rückgabewert : -1 = Wenn ein Fehler aufgetreten ist
+				   -2 = Wenn es wieder zurück ins Menü gehen soll
 				   nStorage = Der Speicher, für den Prozess
 -------------------------------------------------------------------------------------------------- - */
 int HandleUserInputProzessStorage(int nFreeStorage)
@@ -99,11 +100,14 @@ int HandleUserInputProzessStorage(int nFreeStorage)
 	int nStorage = -1;
 
 	fflush(stdin);
-
+	system("cls");
+	printf("Mit \"r\" kommen Sie wieder zum Menue.\n");
 	while (true) {
 		printf("Wie viel Speicher soll fuer den Prozess reserviert werden?\n");
 		printf("Prozessgroesse: ");
 		fgets(cBuffer, MAX_STORAGE_STRING_LENGTH, stdin); //Der Benutzer gibt die größe des Prozessspeichers ein
+		if (CheckIfBackToMenu(cBuffer) == 1)
+			return -2;
 		nStorage = CheckInput(cBuffer, MIN_STORAGE, nFreeStorage, MAX_STORAGE_STRING_LENGTH-2); //-2 wegen \0 und \n
 		if (nStorage != -1 && nStorage <= nFreeStorage)
 			break;
@@ -161,16 +165,22 @@ void HandleUserInputProzessName(char *c)
 	Die Funktion läuft solange, bis eine richtige Eingabe gemacht wurde, oder das Programm beendet wird
 	Parameter: -
 	Rückgabewert: -1 = Wenn ein Fehler aufgetreten ist, ansonsten dem vom Benutzer eingegebenen Wert
+				  -2 = Wenn es wieder zurück ins Menü gehen soll
 --------------------------------------------------------------------------------------------------- */
 int HandleUserInputEndProzess()
 {
 	char cBuffer[MENUPOINT_LENGTH] = "\0"; //Char-Array, in dem die Benutzereingabe gespeichert wird
+	
+	system("cls");
 
 	fflush(stdin); //Löscht das \n-Zeichen aus dem Standardeingabepuffer
+	printf("Mit \"r\" kommen Sie wieder zum Menue.\n");
 
 	while (true) {
 		printf("Geben Sie die Prozess ID des zu beendenden Prozesses ein: ");
 		fgets(cBuffer, MENUPOINT_LENGTH, stdin); //Der Menüpunkt wird vom Benutzer eingegeben
+		if (CheckIfBackToMenu(cBuffer) == 1)
+			return -2;
 		if ((CheckInt(cBuffer) == 1)) //Der Eingegebene Menüpunkt wird geprüft
 			return atoi(cBuffer);
 		else //Prüfung war nicht erfolgreich
@@ -230,5 +240,18 @@ int CheckIfStorageSuitable(float f)
 	if (fRest != 1)
 		return -1;
 
+	return 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------
+	Die Funktion prüft ob der Benutzer zurück zum Menü möchte
+	Parameter: *c = String der geprüft werden soll
+	Rückgabewert: 0 = Nicht zurück zum Menü
+				  1 = Zurück zum Menü
+--------------------------------------------------------------------------------------------------- */
+int CheckIfBackToMenu(char *c)
+{
+	if (c[0] == 'r' || c[0] == 'R')
+		return 1;
 	return 0;
 }

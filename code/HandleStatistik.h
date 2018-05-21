@@ -4,15 +4,15 @@
 struct tCountBuddys {
 	int nValue;
 	int nCounter;
+	struct tCountBuddys *pNextCB;
 };
-
-static int nCounter = 0;
 
 int statistik(struct tStorage *pStorage);
 void displayProzess(struct tStorage *pStorage);
 void displayStorage(struct tStorage *pStorage);
-int countBuddys(struct tCountBuddys **pCB, struct tStorage *pStorage);
-int addNewBuddyToList(struct tCountBuddys **pCB, struct tStorage *pStorage, int nPosBuddyList, int nPosCountBuddys);
-struct tCountBuddys** Init_tCountBuddys(struct tCountBuddys** pCB, int nPos);
+int countBuddys(struct tCountBuddys *pCB, struct tStorage *pStorage);
+int addNewBuddyToList(struct tCountBuddys *pCB, int nStorageSize);
+struct tCountBuddys* Init_tCountBuddys();
+void release(struct tCountBuddys *pCB);
 
 #endif
