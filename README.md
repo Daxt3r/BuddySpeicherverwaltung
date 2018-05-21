@@ -18,11 +18,6 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
  - Bei Starten eines neuen Prozesses, prüfen ob überhaupt noch genügen Speicher zur Verfügung steht
  - Die Nummer für Default Prozessnamen wird noch nicht hoch gezählt
 
-# Geplante Features
- - Schreiben von statistichen Daten in eine Datei
- - Fehlerreports in eine LogErrorDatei schreiben
- - (Ein Bot, der selbstständig Prozesse startet und beendet) - Möglicherweise
-
 # Bekannte Fehler
  - Es werden noch nicht alle freien Buddys bei Ausgabe der Statistik erfasst
  - Wenn zu viele Prozesse mit der größe von 1 erstellt werden, wird das Programm abstürzen
