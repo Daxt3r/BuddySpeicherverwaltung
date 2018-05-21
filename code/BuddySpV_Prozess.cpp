@@ -141,7 +141,6 @@ int splitStorage(struct tStorage *pStorage, int nStorage, int nProzessSize, char
 	struct tBuddy *pTmpBuddy = NULL;
 	int recv = 0;
 
-	//pTmpBuddy = pStorage->pFirstBuddy; //altes verfahren (behalten wir mal, falls das neue Verfahren fehler aufweist) 
 	pTmpBuddy = searchForFreeStorage(pStorage); //Größter freier Speicher wird ermittelt und zurück gegeben
 
 	while (pTmpBuddy != NULL)
@@ -188,7 +187,8 @@ int splitStorage(struct tStorage *pStorage, int nStorage, int nProzessSize, char
 }
 
 /* ---------------------------------------------------------------------------------------------------
-	Die Funktion sucht den größten freien Speicher und gibt diesen zurück
+	Die Funktion sucht den größten freien Speicher und gibt diesen zurück. Sollte noch kein Buddy in der Liste
+	sein, wird der erste Buddy zurück gegeben.
 	Parameter: *pStorage = Zeiger auf die Struktur tStorage
 	Rückgabewerte:  pBiggestFreeBuddy = Größter freier Speicher
 				    NULL = Wenn kein freier Speicher gefunden wurde
@@ -207,9 +207,9 @@ struct tBuddy* searchForFreeStorage(struct tStorage *pStorage)
 			{
 				if (pStorage->pBuddyList[i]->bFree == true && pStorage->pBuddyList[i]->nStorageSize > 0)
 				{
-					if(pBiggestFreeBuddy == NULL)
+					if (pBiggestFreeBuddy == NULL)
 						pBiggestFreeBuddy = pStorage->pBuddyList[i];
-					else if(pBiggestFreeBuddy->nStorageSize < pStorage->pBuddyList[i]->nStorageSize)
+					else if (pBiggestFreeBuddy->nStorageSize < pStorage->pBuddyList[i]->nStorageSize)
 						pBiggestFreeBuddy = pStorage->pBuddyList[i];
 				}
 				else if (pStorage->pBuddyList[i]->pBuddy->bFree == true && pStorage->pBuddyList[i]->pBuddy->nStorageSize > 0)
@@ -218,11 +218,12 @@ struct tBuddy* searchForFreeStorage(struct tStorage *pStorage)
 						pBiggestFreeBuddy = pStorage->pBuddyList[i]->pBuddy;
 					else if (pBiggestFreeBuddy->nStorageSize < pStorage->pBuddyList[i]->pBuddy->nStorageSize)
 						pBiggestFreeBuddy = pStorage->pBuddyList[i]->pBuddy;
-					
+
 				}
 			}
 		}
 	}
+
 	return pBiggestFreeBuddy;
 }
 

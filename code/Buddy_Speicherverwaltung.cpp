@@ -55,7 +55,7 @@ int main()
 			printf("Es ist ein Fehler in der Funktion \"HandleUserInput\" aufgetreten. . .\n");
 			break;
 		}
-		if (i == 6) //Benutzer hat das Programm beendet
+		if (i == 5) //Benutzer hat das Programm beendet
 		{
 			printf("\nEvtl. laufende Prozesse werden beendet. . .\n");
 			endAllProzesses(pStorage);
@@ -111,10 +111,9 @@ void DisplayMenu()
 {
 	printf("\n(1) Einen Prozess starten\n");
 	printf("(2) Einen Prozess beenden\n");
-	//printf("(3) Speicherbereich vergroessern\n");
-	printf("(4) Statistik ausgeben lassen\n");
-	printf("(5) Alle Prozesse beenden\n");
-	printf("(6) Programm beenden\n\n");
+	printf("(3) Statistik ausgeben lassen\n");
+	printf("(4) Alle Prozesse beenden\n");
+	printf("(5) Programm beenden\n\n");
 }
 
 /*---------------------------------------------------------------------------------------------------
@@ -131,11 +130,9 @@ void SelectMenupoint(struct tStorage *pStorage, int i)
 			break;
 		case 2: endProzess(pStorage);
 			break;
-		//case 3: raise_storage(pStorage);
-		//	break;
-		case 4: statistik(pStorage);
+		case 3: statistik(pStorage);
 			break;
-		case 5: endAllProzesses(pStorage);
+		case 4: endAllProzesses(pStorage);
 			break;
 		default: printf("Unbekannter Wert: %d\n", i);
 			break;

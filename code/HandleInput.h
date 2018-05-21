@@ -2,7 +2,7 @@
 #define HANDLEINPUT_H
 
 #define MIN_MENUPOINT_VALUE 1
-#define MAX_MENUPOINT_VALUE 6
+#define MAX_MENUPOINT_VALUE 5
 #define MENUPOINT_LENGTH 3 //"\n" und "\0" nicht vergessen!
 
 #define MIN_STORAGE 1

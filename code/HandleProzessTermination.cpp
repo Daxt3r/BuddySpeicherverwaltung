@@ -109,7 +109,8 @@ void checkIfMergable(struct tStorage *pStorage)
 	}
 }
 /* ---------------------------------------------------------------------------------------------------
-	Die Funktion beendet alle laufenden Prozesse
+	Die Funktion beendet alle laufenden Prozesse, es werden alle Werte wieder auf den ursprungs Zustand
+	zurück gesetzt.
 	Parameter: *pStorage = Zeiger auf die Struktur tStorage
 	Rückgabewert: 1 = Wenn ein Fehler aufgetreten ist
 				  0 = Wenn kein Fehler aufgetreten ist
@@ -135,10 +136,15 @@ int endAllProzesses(struct tStorage *pStorage)
 			}
 		}
 	}
+	pStorage->nCounter_B = 0;
+
 	if (pStorage->pBuddyList != NULL)
 	{
 		free(pStorage->pBuddyList);
 		pStorage->pBuddyList = NULL;
+
+		if (addToBuddyList(pStorage, pStorage->pFirstBuddy) == 1) //Erster Buddy wird wieder in die Liste eingefügt
+			return 1;
 	}
 	if (pStorage->pBuddyProzessList != NULL)
 	{
@@ -146,10 +152,11 @@ int endAllProzesses(struct tStorage *pStorage)
 		pStorage->pBuddyProzessList = NULL;
 	}
 	pStorage->pFirstBuddy->pNextBuddy = NULL;
+	pStorage->pFirstBuddy->bFree = true;
 	pStorage->pFirstBuddy->nStorageSize = pStorage->nMaxStorageSize;
+	strcpy_s(pStorage->pFirstBuddy->cProzessName, "\0");
 	pStorage->nFreeStorage = pStorage->nMaxStorageSize;
-	pStorage->nCounter_B = 0;
-
+	
 	if (pStorage->nCounter_P > 0)
 		printf("Alle laufenden Prozesse wurden erfolgreich beendet. . .\n");
 	else

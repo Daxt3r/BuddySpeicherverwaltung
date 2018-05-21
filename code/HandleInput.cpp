@@ -48,7 +48,7 @@ int HandleUserInputStorage()
 	if (i < DEFAULT_MIN_STORAGE) //Es wird geprüft ob die Eingabe kleiner als der DEFAULT_MIN_STORAGE (16) ist
 	{
 		printf("Da wird aber sparsam mit dem Speicher umgegangen.\n");
-		printf("Wir erhoehen den Speicher mal auf: %d\n", DEFAULT_MIN_STORAGE);
+		printf("Der Speicher wird auf erhöht: %d\n", DEFAULT_MIN_STORAGE);
 		i = DEFAULT_MIN_STORAGE;
 	}
 	return i;
@@ -147,7 +147,8 @@ void HandleUserInputProzessName(char *c)
 		fgets(cBuffer, PROZESS_NAME_LENGTH, stdin);
 		if (cBuffer[0] == '-')
 		{
-			strcpy(c, DEFAULT_PROZESS_NAME);
+			sprintf(c, "%s_%d", DEFAULT_PROZESS_NAME, lnr);
+			lnr++;
 			break;
 		}
 		else
