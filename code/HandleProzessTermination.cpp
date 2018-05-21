@@ -23,6 +23,11 @@ int endProzess(struct tStorage *pStorage)
 		Prozess wird beendet. */
 
 	nPID = HandleUserInputEndProzess();
+	if (nPID == -2)
+	{
+		printf("Vorgang wird abgebrochen, Sie kehren in das Menue zurueck!\n");
+		return 0;
+	}
 	nPos = searchForProzess(pStorage, nPID);
 	if (nPos == -1)
 	{
@@ -142,11 +147,16 @@ int endAllProzesses(struct tStorage *pStorage)
 	}
 	pStorage->pFirstBuddy->pNextBuddy = NULL;
 	pStorage->pFirstBuddy->nStorageSize = pStorage->nMaxStorageSize;
-	pStorage->nFreeStorage = 0;
-	pStorage->nCounter_P = 0;
+	pStorage->nFreeStorage = pStorage->nMaxStorageSize;
 	pStorage->nCounter_B = 0;
 
-	printf("Alle Prozesse wurden erfolgreich beendet. . .\n");
+	if (pStorage->nCounter_P > 0)
+		printf("Alle laufenden Prozesse wurden erfolgreich beendet. . .\n");
+	else
+		printf("Es mussten keine Prozesse beendet werden. . .\n");
+	
+	pStorage->nCounter_P = 0;
+
 	return 0;
 }
 

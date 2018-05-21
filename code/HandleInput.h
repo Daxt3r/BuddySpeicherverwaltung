@@ -26,6 +26,7 @@ void HandleUserInputProzessName(char *c);
 int HandleUserInputEndProzess();
 int CheckInput(char *c, int nMin, int nMax, int nLength);
 int CheckIfStorageSuitable(float f);
+int CheckIfBackToMenu(char *c);
 
 //---------------------------------------------------------------------------------------------------
 
