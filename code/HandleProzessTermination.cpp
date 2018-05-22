@@ -17,10 +17,7 @@ int endProzess(struct tStorage *pStorage)
 {
 	int nPID = 0;
 	int nPos = 0;
-	/*
-		In der Schleife wird der Benutzer aufgefordert die Prozess ID des zu beendenen Prozess einzugeben.
-		Es wird geprüft ob es diesen Prozess in der Liste gibt, wenn ja wird die Schleife verlassen und der 
-		Prozess wird beendet. */
+	system("cls");
 
 	nPID = HandleUserInputEndProzess();
 	if (nPID == -2)
@@ -118,6 +115,7 @@ void checkIfMergable(struct tStorage *pStorage)
 int endAllProzesses(struct tStorage *pStorage)
 {
 	int i = 0;
+	system("cls");
 
 	if (pStorage->pBuddyList != NULL)
 	{

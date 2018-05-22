@@ -30,6 +30,23 @@ int strlen_int(int nValue)
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------
 	Funktion: Prüft ob in einer Zeichenkette(*cBuf) nur nummerische Zeichen enthalten sind
+	Parameter: - *cString = Zeichenkette welche geprüft werden soll
+	           - cSearch = Das zu suchende Zeichen, welches ersetzt werden soll
+			   - cNew = Das neue Zeichen
+	Rückgabewert: -
+-----------------------------------------------------------------------------------------------------------------------------------------------*/
+void SetNewCharacter(char *cString, char cSearch, char cNew)
+{
+	while (*cString != '\0')
+	{
+		if (*cString == cSearch)
+			*cString = cNew;
+		cString++;
+	}
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------
+	Funktion: Prüft ob in einer Zeichenkette(*cBuf) nur nummerische Zeichen enthalten sind
 	Parameter: - char *cString = Zeichenkette welche geprüft werden soll
 	Rückgabewert: 0 = Nicht nur nummerische Zeichen 
 	              1 = Nur nummerische Zeichen 

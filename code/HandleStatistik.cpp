@@ -12,6 +12,8 @@
 --------------------------------------------------------------------------------------------------- */
 int statistik(struct tStorage *pStorage)
 {
+	system("cls");
+
 	displayProzess(pStorage);
 	displayStorage(pStorage);
 	return 0;

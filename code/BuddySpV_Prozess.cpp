@@ -25,7 +25,9 @@ int startProzess(struct tStorage *pStorage)
 	char cProzessName[PROZESS_NAME_LENGTH];
 	int n = 0;
 
-	if ((nProzessSize = HandleUserInputProzessStorage(pStorage->nFreeStorage)) == -1) //Benutzer gibt die größe des Prozesses ein
+	system("cls");
+
+	if ((nProzessSize = HandleUserInputProzessStorage(pStorage, pStorage->nFreeStorage)) == -1) //Benutzer gibt die größe des Prozesses ein
 	{
 		printf("Es ist ein Fehler in der Funktion \"HandleUserInputProzessStorage\" aufgetreten. . .\n");
 		return 1;
@@ -45,7 +47,7 @@ int startProzess(struct tStorage *pStorage)
 	}
 	if (n == 0)
 	{
-		printf("Prozess wurde erfolgreich gestartet\n\n");
+		printf("Prozess wurde erfolgreich gestartet. . .\n\n");
 		return 0;
 	}
 	if ((n = splitStorage(pStorage, nStorage, nProzessSize, cProzessName)) == 1)
@@ -59,7 +61,7 @@ int startProzess(struct tStorage *pStorage)
 		return 0;
 	}
 
-	printf("Prozess wurde erfolgreich gestartet\n\n");
+	printf("\nProzess wurde erfolgreich gestartet. . .\n\n");
 	return 0;
 }
 
