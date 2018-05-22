@@ -18,4 +18,4 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
  - Einheitliche Darstellung von Texten (Absätzen, neue Zeilen, usw.)
 
 # Bekannte Fehler
- - Aktuelle keine kritischen Fehler bekannt
+ - Aktuelle keine Fehler bekannt
