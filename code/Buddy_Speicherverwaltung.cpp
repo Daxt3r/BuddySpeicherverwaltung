@@ -57,7 +57,7 @@ int main()
 		}
 		if (i == 5) //Benutzer hat das Programm beendet
 		{
-			printf("\nEvtl. laufende Prozesse werden beendet. . .\n");
+			printf("Evtl. laufende Prozesse werden beendet. . .\n");
 			endAllProzesses(pStorage);
 			printf("Die Simulation der Buddy-Speicherverwaltung wurde beendet. . .\n\n");
 			break;
