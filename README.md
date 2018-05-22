@@ -17,4 +17,7 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
 - Alle Features wurden implementiert
 
 # Bekannte Fehler
- - Aktuell keine Fehler bekannt
+ - Nach längerer Benutzung konnten Buddys nicht mehr zusammengefügt werden, da einer auf NULL gesetzt war.
+   Dieser Fehler konnte leider nicht reproduziert werden, wodurch eine Fehlerbehebung erschwert wird. 
+   Da dies jedoch erst nach längerer Laufzeit auftritt, und das Programm nur kurzzeitig läuft, hat dieser Fehler nur die 
+   Priorität [middle], auch wenn dieser Fehler zu einem Programmabsturz führt.
