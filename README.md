@@ -14,8 +14,7 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
   + Belegter Speicher / freier Speicher wird angezeigt
 
 # Noch nicht implementiert
- - Einheitliche Darstellung der Tabellen
- - Einheitliche Darstellung von Texten (Absätzen, neue Zeilen, usw.)
+- Alle Features wurden implementiert
 
 # Bekannte Fehler
  - Aktuell keine Fehler bekannt
