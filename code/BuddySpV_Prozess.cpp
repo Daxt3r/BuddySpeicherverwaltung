@@ -4,11 +4,11 @@
 
 #include "HandleInput.h"
 #include "BuddySpV_Prozess.h"
+#include "HandleStatistik.h"
 #include "util.h"
 
 /*
 	TODO: Programmcode dokumentieren!!
-		  Speicher beim Beenden des Programmes wieder freigeben
 */
 
 
@@ -26,6 +26,8 @@ int startProzess(struct tStorage *pStorage)
 	int n = 0;
 
 	system("cls");
+
+	displayStorage(pStorage); //Freier Speicher wird angezeigt
 
 	if ((nProzessSize = HandleUserInputProzessStorage(pStorage, pStorage->nFreeStorage)) == -1) //Benutzer gibt die größe des Prozesses ein
 	{
@@ -246,6 +248,7 @@ int createBuddy(struct tBuddy *pTmpBuddy)
 		return 1;
 	}
 	pTmpBuddyNew->nStorageSize = pTmpBuddy->nStorageSize / 2; //Speichergröße des Buddys wird gesetzt (Hälfte des vorherigen)
+	pTmpBuddyNew->nStorageSizeIntern = pTmpBuddy->nStorageSize / 2; //Interner Speicher wird gesetzt, macht das debuggen einfacher
 
 	pTmpBuddy->pNextBuddy = pTmpBuddyNew; //Verweis auf den neuen Buddy wird gesetzt (darunterliegenden)
 	pTmpBuddyNew->pPreviousBuddy = pTmpBuddy; //Verweis auf den vorherigen Buddy wird gesetzt (darüberliegend)
@@ -257,14 +260,14 @@ int createBuddy(struct tBuddy *pTmpBuddy)
 		return 1;
 	}
 	pTmpBuddyNew->nStorageSize = pTmpBuddy->nStorageSize / 2; //Speichergröße des Buddys wird gesetzt (Hälfte des vorherigen)
-	
+	pTmpBuddyNew->nStorageSizeIntern = pTmpBuddy->nStorageSize / 2; //Interner Speicher wird gesetzt, macht das debuggen einfacher
+
 	//Verweis der neuen Buddys untereinander werden gesetzt 
 	pTmpBuddy->pNextBuddy->pBuddy = pTmpBuddyNew; 
 	pTmpBuddyNew->pBuddy = pTmpBuddy->pNextBuddy->pBuddy;
 
 	pTmpBuddy->bFree = false; //(alter) Buddy wird als belegt gekennzeichnet, da sein Speicher aufgeteilt wurde
 	pTmpBuddy->nStorageSize = 0; //Speicher wird auf 0 gesetzt, da dieser aufgeteilt wurde und theoretisch nicht mehr vorhanden ist
-
 	return 0;
 }
 
@@ -370,6 +373,7 @@ struct tBuddy* Init_tBuddy()
 
 	pBuddy->nPID = 0;
 	pBuddy->nStorageSize = 0;
+	pBuddy->nStorageSizeIntern = 0;
 	pBuddy->nProzessSize = 0;
 	strcpy_s(pBuddy->cProzessName, "");
 	pBuddy->bFree = true;

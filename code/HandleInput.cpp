@@ -24,8 +24,9 @@ int HandleUserInputStorage()
 	int nStorage = 0;
 	int recv = 0;
 
+	printf("\n"); //Damit die Konsolenausgabe schön aussieht
 	while (true) {
-		printf("Wie gross soll der zu verwendene Speicher sein? Es sind nur Werte mit der Basis 2^n zulaessig!\n");
+		printf("Wie gross soll der zu verwendene Speicher sein? ");
 		fgets(cBuffer, MAX_STORAGE_STRING_LENGTH, stdin); //Der Menüpunkt wird vom Benutzer eingegeben
 		SetNewCharacter(cBuffer, '\n', '\0');
 		nStorage = CheckInput(cBuffer, MIN_STORAGE, MAX_STORAGE, MAX_STORAGE_STRING_LENGTH);
@@ -106,7 +107,6 @@ int HandleUserInputProzessStorage(struct tStorage *pStorage, int nFreeStorage)
 	char cBuffer[MAX_STORAGE_STRING_LENGTH] = "\0";
 	int nStorage = -1;
 	int recv = 0;
-	system("cls");
 
 	printf("Mit \"r\" kommen Sie wieder zum Menue.\n");
 	
@@ -170,11 +170,18 @@ void HandleUserInputProzessName(char *c)
 {
 	char cBuffer[PROZESS_NAME_LENGTH] = "\0";
 	
-	printf("\nSoll dem Prozess ein Name gegeben werden? Wenn nicht, geben Sie \"-\" ein.\n");
+	printf("\nSoll dem Prozess ein Namen gegeben werden? Wenn nicht, geben Sie \"-\" ein.\n");
 	while (true) {
 		printf("Prozessname: ");
 		fgets(cBuffer, PROZESS_NAME_LENGTH, stdin);
-		if (cBuffer[0] == '-') //Es wird geprüft ob ein Default Prozessname vergeben werden soll
+		SetNewCharacter(cBuffer, '\n', '\0');
+		if (strlen(cBuffer) >= 24)
+		{
+			printf("\nDer Prozessname ist zu lang. Es ist nur eine Laenge von 24 Zeichen erlaubt!\n");
+			printf("Bitte den Namen erneut eingeben.\n\n");
+			cBuffer[0] = '\0';
+		}
+		else if (cBuffer[0] == '-') //Es wird geprüft ob ein Default Prozessname vergeben werden soll
 		{
 			sprintf(c, "%s_%d", DEFAULT_PROZESS_NAME, lnr);
 			lnr++;
@@ -182,7 +189,6 @@ void HandleUserInputProzessName(char *c)
 		}
 		else
 		{
-			SetNewCharacter(cBuffer, '\n', '\0');
 			strcpy(c, cBuffer);
 			break;
 		}
@@ -201,9 +207,6 @@ int HandleUserInputEndProzess()
 {
 	char cBuffer[MAX_PROZESSID_LENGTH] = "\0"; //Char-Array, in dem die Benutzereingabe gespeichert wird
 	
-	system("cls");
-
-	fflush(stdin); //Löscht das \n-Zeichen aus dem Standardeingabepuffer
 	printf("Mit \"r\" kommen Sie wieder zum Menue.\n");
 
 	while (true) {

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <stdlib.h>
+#include <string.h>
 
 #include "HandleStatistik.h"
 #include "BuddySpV_Prozess.h"
@@ -27,14 +28,27 @@ int statistik(struct tStorage *pStorage)
 void displayProzess(struct tStorage *pStorage)
 {
 	int i = 0;
-	if (pStorage->pBuddyProzessList != NULL)
+	if (pStorage->pBuddyProzessList != NULL && pStorage->nCounter_P > 0)
 	{
-		printf("PID\t|Prozessname\t|Prozessgroesse\t|Bereitgestellter Speicher\n");
+		printf("PID\t|Prozessname\t\t|Prozessgroesse\t|Bereitgestellter Speicher\n");
+		
 		for (; i < pStorage->nCounter_P; i++)
 		{
 			if (pStorage->pBuddyProzessList[i] != NULL)
-				printf("%d\t|%s\t|%d\t|%d\n", pStorage->pBuddyProzessList[i]->nPID, pStorage->pBuddyProzessList[i]->cProzessName, pStorage->pBuddyProzessList[i]->nProzessSize, pStorage->pBuddyProzessList[i]->nStorageSize);
+			{
+				printf("%d\t|", pStorage->pBuddyProzessList[i]->nPID);
+				if (strlen(pStorage->pBuddyProzessList[i]->cProzessName) <= 6)
+					printf("%s\t\t\t", pStorage->pBuddyProzessList[i]->cProzessName);
+				else if(strlen(pStorage->pBuddyProzessList[i]->cProzessName) < 15)
+					printf("%s\t\t", pStorage->pBuddyProzessList[i]->cProzessName);
+				else if(strlen(pStorage->pBuddyProzessList[i]->cProzessName) < 23)
+					printf("%s\t", pStorage->pBuddyProzessList[i]->cProzessName);
+				else
+					printf("%s", pStorage->pBuddyProzessList[i]->cProzessName);
+				printf("|%d\t\t|%d\n", pStorage->pBuddyProzessList[i]->nProzessSize, pStorage->pBuddyProzessList[i]->nStorageSize);
+			}
 		}
+		printf("--------------------------------------------------------------------------\n\n");
 	}
 	else
 		printf("Es sind noch keine Prozesse in der Liste vorhanden!\n\n");
@@ -61,9 +75,10 @@ void displayStorage(struct tStorage *pStorage)
 	}
 	if (pCB != NULL)
 	{
-		printf("\nAnzahl freier Speicherbloecke:\n");
+		printf("Anzahl freier Speicherbloecke\n");
+		printf("-----------------------------\n");
 		printf("Blockgroesse\tAnzahl\n");
-
+		
 		//Die Schleife durchläuft die Liste und gibt alle Speicherblöcke mit ihrer Anzahl aus
 		while (pCB != NULL)
 		{
@@ -72,8 +87,8 @@ void displayStorage(struct tStorage *pStorage)
 			pCB = pCB->pNextCB;
 		}
 	}
-	printf("\nBelegter Speicher|Freier Speicher\t| Maximaler Speicher\n");
-	printf("%d\t\t|%d\t\t|%d\t\t|\n", pStorage->nMaxStorageSize - pStorage->nFreeStorage, pStorage->nFreeStorage, pStorage->nMaxStorageSize);
+	printf("\nBelegter Speicher\t|Freier Speicher\t|Maximaler Speicher\n");
+	printf("%d\t\t\t|%d\t\t\t|%d\n\n", pStorage->nMaxStorageSize - pStorage->nFreeStorage, pStorage->nFreeStorage, pStorage->nMaxStorageSize);
 
 	release(pFirst);
 }

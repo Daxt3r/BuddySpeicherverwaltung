@@ -9,11 +9,11 @@
 
 #define MIN_STORAGE 1
 #define MAX_STORAGE 8192
-#define MAX_STORAGE_STRING_LENGTH 52 //Stringlänge ist so groß, da bei einer zu geringen größe Werte noch im Eingangsstream waren und zu Fehlern geführt haben
+#define MAX_STORAGE_STRING_LENGTH 22 //Stringlänge ist so groß, da bei einer zu geringen größe Werte noch im Eingangsstream waren und zu Fehlern geführt haben
 
 #define DEFAULT_MIN_STORAGE 16
 
-#define PROZESS_NAME_LENGTH 26
+#define PROZESS_NAME_LENGTH 52
 
 #define DEFAULT_PROZESS_NAME "defaultProzess"
 

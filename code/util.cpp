@@ -29,6 +29,20 @@ int strlen_int(int nValue)
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------
+	Die Funktion berechnet alle Werte von 1 bis zum maximalen Wert
+	Parameter: - nMax = Wert bis zu dem die Potenz berechnet werden soll
+	Rückgabewert: -
+-----------------------------------------------------------------------------------------------------------------------------------------------*/
+void pow(int nMax)
+{
+	int i = 1;
+	while (i <= nMax)
+	{
+		printf("[%d] ", i);
+		i = i * 2;
+	}
+}
+/*----------------------------------------------------------------------------------------------------------------------------------------------
 	Funktion: Prüft ob in einer Zeichenkette(*cBuf) nur nummerische Zeichen enthalten sind
 	Parameter: - *cString = Zeichenkette welche geprüft werden soll
 	           - cSearch = Das zu suchende Zeichen, welches ersetzt werden soll

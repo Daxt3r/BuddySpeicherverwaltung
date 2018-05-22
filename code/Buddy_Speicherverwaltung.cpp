@@ -12,6 +12,7 @@
 #include "HandleStatistik.h"
 #include "HandleStorageChanges.h"
 #include "BuddySpV_Prozess.h"
+#include "util.h"
 
 /*
 	TODO: -
@@ -57,6 +58,7 @@ int main()
 		}
 		if (i == 5) //Benutzer hat das Programm beendet
 		{
+			system("cls"); //Inhalt der Konsole wird gelöscht
 			printf("Evtl. laufende Prozesse werden beendet. . .\n");
 			endAllProzesses(pStorage);
 			printf("Die Simulation der Buddy-Speicherverwaltung wurde beendet. . .\n\n");
@@ -83,15 +85,19 @@ int main()
 --------------------------------------------------------------------------------------------------- */
 int DefineStorage(struct tStorage *pStorage)
 {
-	printf("Willkommen zur Buddy Speicherverwaltung\n\n");
-	printf("Zum Beginn muss der zu simulierende Speicher festgelegt werden\n");
+	printf("Willkommen zur Buddy Speicherverwaltung!\n\n");
+	printf("Zum Beginn muss der zu simulierende Speicher festgelegt werden.\n");
+	printf("Moegliche Werte sind: ");
+	pow(MAX_STORAGE); //Gibt alle möglichen Werte aus, die als Speicher angegeben werden dürfen
+
 	pStorage->nMaxStorageSize = HandleUserInputStorage(); //Größe des Speichers wird in pStorage->nMaxStorageSize gespeichert
 	pStorage->nFreeStorage = pStorage->nMaxStorageSize;	  //Freier Speicher wird auf pStorage->nMaxStorageSize gesetzt
 	
 	pStorage->pFirstBuddy = Init_tBuddy(); //Erste Element in der Liste wird erstellt <-- Erstspart einiges an Arbeit
 	if (pStorage->pFirstBuddy == NULL)
 		return 1;
-	pStorage->pFirstBuddy->nStorageSize = pStorage->nMaxStorageSize;
+	pStorage->pFirstBuddy->nStorageSize = pStorage->nMaxStorageSize; //Anfangsspeicher wird gesetzt
+	pStorage->pFirstBuddy->nStorageSizeIntern = pStorage->nMaxStorageSize; //Interner Speicher wird gesetzt, macht das debuggen einfacher
 
 	pStorage->pFirstBuddy->pBuddy = Init_tBuddy(); //Buddy für das erste Element in der Liste wird erstellt, damit das Konzept nicht inkonsistent ist. außerdem löst das ein Problem, beim der Buddy-Such-Schleife
 	if (pStorage->pFirstBuddy->pBuddy == NULL)

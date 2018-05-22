@@ -5,6 +5,7 @@
 #include "HandleInput.h"
 #include "HandleProzessTermination.h"
 #include "BuddySpV_Prozess.h"
+#include "HandleStatistik.h"
 
 
 /*---------------------------------------------------------------------------------------------------
@@ -17,24 +18,33 @@ int endProzess(struct tStorage *pStorage)
 {
 	int nPID = 0;
 	int nPos = 0;
+	
 	system("cls");
 
-	nPID = HandleUserInputEndProzess();
-	if (nPID == -2)
+	if (pStorage->nCounter_P > 0)
 	{
-		printf("Vorgang wird abgebrochen, Sie kehren in das Menue zurueck!\n");
-		return 0;
+		displayProzess(pStorage); //Laufende Prozesse werden angezeigt
+
+		nPID = HandleUserInputEndProzess();
+		if (nPID == -2)
+		{
+			printf("Vorgang wird abgebrochen, Sie kehren in das Menue zurueck!\n");
+			return 0;
+		}
+		nPos = searchForProzess(pStorage, nPID);
+		if (nPos == -1)
+		{
+			printf("Prozess mit der PID: %d wurde nicht gefunden!\n", nPID);
+			return 0;
+		}
+		releaseProzess(pStorage, nPos); //Prozess wird beendet
+		cleanProzessList(pStorage); //Der gelöschte Prozess hinterlässt eine Lücke, die evtl. gefüllt werden muss
+		printf("Prozess wurde beendet. . .\n\n");
+
+		checkIfMergable(pStorage); //Es wird geprüft, ob Buddys wieder zusammengefügt werden können
 	}
-	nPos = searchForProzess(pStorage, nPID);
-	if (nPos == -1)
-	{
-		printf("Prozess mit der PID: %d wurde nicht gefunden!\n", nPID);
-		return 0;
-	}
-	releaseProzess(pStorage, nPos); //Prozess wird beendet
-	printf("Prozess wurde beendet. . .\n\n");
-	
-	checkIfMergable(pStorage); //Es wird geprüft, ob Buddys wieder zusammengefügt werden können
+	else
+		printf("Es befinden sich noch keine Prozesse in der Liste, die geloescht werden koennen!\n\n");
 
 	return 0;
 }
@@ -52,8 +62,11 @@ int searchForProzess(struct tStorage *pStorage, int nPID)
 	int i = 0;
 
 	for (; i < pStorage->nCounter_P; i++)
-		if (pStorage->pBuddyProzessList[i]->nPID == nPID)
-			return i;
+	{
+		if(pStorage->pBuddyProzessList[i] != NULL)
+			if (pStorage->pBuddyProzessList[i]->nPID == nPID)
+				return i;
+	}
 	return -1;
 }
 
@@ -72,6 +85,31 @@ void releaseProzess(struct tStorage *pStorage, int nPos)
 
 	pStorage->nFreeStorage += pStorage->pBuddyProzessList[nPos]->nStorageSize; //Freier Speicher wird wieder erhöht
 	pStorage->pBuddyProzessList[nPos] = NULL; //Prozess wird aus der Liste geschmissen
+	pStorage->nCounter_P--; //Anzahl der Prozesse wird verringert
+}
+
+/*---------------------------------------------------------------------------------------------------
+	Nachdem ein Wert aus der ProzessListe gelöscht wurde, der nicht der letzte in dieser war, 
+	enthält diese einen NULL Wert, welche zu einem Fehler führen kann. Darum wird die Liste aufgeräumt 
+	Parameter: *pStorage = Zeiger auf die Struktur tStorage
+	Rückgabewert: 1 = Wenn ein Fehler aufgetreten ist
+				  0 = Wenn kein Fehler aufgetreten ist
+--------------------------------------------------------------------------------------------------- */
+void cleanProzessList(struct tStorage *pStorage)
+{
+	int i = 0;
+
+	while (pStorage->pBuddyProzessList != NULL)
+	{
+		if (pStorage->pBuddyProzessList[i] == NULL && pStorage->pBuddyProzessList[i + 1] != NULL)
+		{
+			pStorage->pBuddyProzessList[i] = pStorage->pBuddyProzessList[i + 1];
+			pStorage->pBuddyProzessList[i + 1] = NULL;
+		}
+		i++;
+		if (i >= pStorage->nCounter_P)
+			break;
+	}
 }
 
 /*---------------------------------------------------------------------------------------------------
@@ -115,7 +153,6 @@ void checkIfMergable(struct tStorage *pStorage)
 int endAllProzesses(struct tStorage *pStorage)
 {
 	int i = 0;
-	system("cls");
 
 	if (pStorage->pBuddyList != NULL)
 	{
@@ -163,14 +200,4 @@ int endAllProzesses(struct tStorage *pStorage)
 	pStorage->nCounter_P = 0;
 
 	return 0;
-}
-
-/* ---------------------------------------------------------------------------------------------------
-	Die Funktion gibt die angeforderten Ressourcen wieder frei
-	Parameter: *pBuddy
-	Rückgabewert: -
---------------------------------------------------------------------------------------------------- */
-void release_tBuddy(struct tBuddy *pBuddy)
-{
-
 }

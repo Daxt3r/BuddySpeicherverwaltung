@@ -8,6 +8,7 @@ static int nCounter_PID = 1; //Counter für die Prozess ID
 
 struct tBuddy {
 	int nPID;						//ID des Prozesses um nach ihm zu suchen
+	int nStorageSizeIntern;			//Größe des Speicherbereiches, wird aber nicht auf 0 gesetzt, wenn der Buddy in verwendung ist
 	int nStorageSize;				//Größe des Speicherbereiches
 	int nProzessSize;				//Größe des Prozesses
 	char cProzessName[MAXLENGTH];	//Name des Prozesses
