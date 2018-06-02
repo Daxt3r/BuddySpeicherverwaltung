@@ -20,4 +20,5 @@ Das Projekt simuliert die Buddy-Speicherverwaltung. Das Projekt wird in der Spra
  - Nach längerer Benutzung konnten Buddys nicht mehr zusammengefügt werden, da einer auf NULL gesetzt war.
    Dieser Fehler konnte leider nicht reproduziert werden, wodurch eine Fehlerbehebung erschwert wird. 
    Da dies jedoch erst nach längerer Laufzeit auftritt, und das Programm nur kurzzeitig läuft, hat dieser Fehler nur die 
-   Priorität [middle], auch wenn dieser Fehler zu einem Programmabsturz führt.
+   Priorität [middle], auch wenn dieser Fehler zu einem Programmabsturz führt. 
+   (Fehler konnte von mehreren Testpersonen nicht reproduziert werden. Fehler bleibt trotzdem Aufgeführt)
