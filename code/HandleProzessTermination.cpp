@@ -163,10 +163,10 @@ int endAllProzesses(struct tStorage *pStorage)
 			{
 				if (pStorage->pBuddyList[i]->pBuddy != NULL)
 				{
-					free(pStorage->pBuddyList[i]->pBuddy);
+					free(pStorage->pBuddyList[i]->pBuddy); //Zweiter Buddy wird freigegeben
 					pStorage->pBuddyList[i]->pBuddy = NULL;
 				}
-				free(pStorage->pBuddyList[i]);
+				free(pStorage->pBuddyList[i]); //Erster Buddy wird freigegeben
 				pStorage->pBuddyList[i] = NULL;
 			}
 		}

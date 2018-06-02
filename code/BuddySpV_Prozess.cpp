@@ -145,7 +145,7 @@ int splitStorage(struct tStorage *pStorage, int nStorage, int nProzessSize, char
 	struct tBuddy *pTmpBuddy = NULL;
 	int recv = 0;
 
-	pTmpBuddy = searchForFreeStorage(pStorage); //Größter freier Speicher wird ermittelt und zurück gegeben
+	pTmpBuddy = searchForFreeStorage(pStorage, nStorage); //Größter freier Speicher wird ermittelt und zurück gegeben
 
 	while (pTmpBuddy != NULL)
 	{
@@ -197,10 +197,10 @@ int splitStorage(struct tStorage *pStorage, int nStorage, int nProzessSize, char
 	Rückgabewerte:  pBiggestFreeBuddy = Größter freier Speicher
 				    NULL = Wenn kein freier Speicher gefunden wurde
 --------------------------------------------------------------------------------------------------- */
-struct tBuddy* searchForFreeStorage(struct tStorage *pStorage)
+struct tBuddy* searchForFreeStorage(struct tStorage *pStorage, int nStorage)
 {
 	int i = 0;
-	struct tBuddy *pBiggestFreeBuddy = NULL;
+	struct tBuddy *pBestFitStorage = NULL;
 
 	if (pStorage->pBuddyList != NULL)
 	{
@@ -211,24 +211,23 @@ struct tBuddy* searchForFreeStorage(struct tStorage *pStorage)
 			{
 				if (pStorage->pBuddyList[i]->bFree == true && pStorage->pBuddyList[i]->nStorageSize > 0)
 				{
-					if (pBiggestFreeBuddy == NULL)
-						pBiggestFreeBuddy = pStorage->pBuddyList[i];
-					else if (pBiggestFreeBuddy->nStorageSize < pStorage->pBuddyList[i]->nStorageSize)
-						pBiggestFreeBuddy = pStorage->pBuddyList[i];
+					if (pBestFitStorage == NULL) //Größter Speicher ist noch nicht gesetzt
+						pBestFitStorage = pStorage->pBuddyList[i];
+					else if (pBestFitStorage->nStorageSize > pStorage->pBuddyList[i]->nStorageSize && pStorage->pBuddyList[i]->nStorageSize > nStorage) //Es wird geprüft ob das Element in der Liste kleiner als das aktuelle Element ist, aber größer als der benötigte Speicher
+						pBestFitStorage = pStorage->pBuddyList[i];
 				}
 				else if (pStorage->pBuddyList[i]->pBuddy->bFree == true && pStorage->pBuddyList[i]->pBuddy->nStorageSize > 0)
 				{
-					if (pBiggestFreeBuddy == NULL)
-						pBiggestFreeBuddy = pStorage->pBuddyList[i]->pBuddy;
-					else if (pBiggestFreeBuddy->nStorageSize < pStorage->pBuddyList[i]->pBuddy->nStorageSize)
-						pBiggestFreeBuddy = pStorage->pBuddyList[i]->pBuddy;
+					if (pBestFitStorage == NULL) //Größter Speicher ist noch nicht gesetzt
+						pBestFitStorage = pStorage->pBuddyList[i]->pBuddy;
+					else if (pBestFitStorage->nStorageSize > pStorage->pBuddyList[i]->pBuddy->nStorageSize && pStorage->pBuddyList[i]->pBuddy->nStorageSize > nStorage) //Es wird geprüft ob das Element in der Liste kleiner als das aktuelle Element ist, aber größer als der benötigte Speicher
+						pBestFitStorage = pStorage->pBuddyList[i]->pBuddy;
 
 				}
 			}
 		}
 	}
-
-	return pBiggestFreeBuddy;
+	return pBestFitStorage;
 }
 
 /* ---------------------------------------------------------------------------------------------------

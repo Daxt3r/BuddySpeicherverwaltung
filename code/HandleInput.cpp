@@ -286,7 +286,7 @@ int CheckIfStorageSuitable(float f)
 int CheckFreeStorage(struct tStorage *pStorage, int nStorage)
 {
 	struct tBuddy *pTmp = NULL;
-	pTmp = searchForFreeStorage(pStorage); //Größter freier Speicher wird angefordert
+	pTmp = searchForFreeStorage(pStorage, nStorage); //Größter freier Speicherblock wird angefordert
 
 	if (pTmp != NULL)
 	{

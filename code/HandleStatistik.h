@@ -1,11 +1,11 @@
 #ifndef HANDLESTATISTIK_H
 #define HANDLESTATISTIK_H
 
-struct tCountBuddys {
-	int nValue;
-	int nCounter;
-	struct tCountBuddys *pNextCB;
-};
+	struct tCountBuddys {
+		int nValue;
+		int nCounter;
+		struct tCountBuddys *pNextCB;
+	};
 
 int statistik(struct tStorage *pStorage);
 void displayProzess(struct tStorage *pStorage);

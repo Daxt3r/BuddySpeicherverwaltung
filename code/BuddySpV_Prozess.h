@@ -36,7 +36,7 @@ int startProzess(struct tStorage *pStorage);
 int storageSize(int nValue);
 int searchInBuddyList(struct tStorage *pStorage, int nStorage, int nProzessSize, char *cProzessName);
 int splitStorage(struct tStorage *pStorage, int nStorage, int nProzessSize, char *cProzesName);
-struct tBuddy* searchForFreeStorage(struct tStorage *pStorage);
+struct tBuddy* searchForFreeStorage(struct tStorage *pStorage, int nStorage);
 int createBuddy(struct tBuddy *pTmpBuddy);
 void addProzess(struct tStorage *pStorage, struct tBuddy *pBuddy, int nStorage, int nProzessSize, char *cProzessName);
 int addToBuddyProzessList(struct tStorage *pStorage, struct tBuddy *pBuddy);
